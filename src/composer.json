@@ -1,6 +1,6 @@
 {
     "name": "frosty84/twitterbot",
-    "description": "A tiny bot that takes your picturef from instagram and posts them to twitter.",
+    "description": "A tiny bot that takes your pictures from Instagram and posts them to Twitter.",
     "type": "project",
     "require-dev": {
         "phpunit/phpunit": "^9.5"
