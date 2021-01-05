@@ -6,6 +6,11 @@ RUN chmod +x /usr/bin/wait-for-it
 
 RUN apk --update --no-cache add git
 
+RUN apk add --no-cache \
+    npm \
+    nodejs \
+    yarn
+
 RUN docker-php-ext-install pdo_mysql
 
 COPY --from=composer /usr/bin/composer /usr/bin/composer
