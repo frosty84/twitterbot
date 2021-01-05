@@ -1,0 +1,6 @@
+services:
+  Application\Service\TwitterService:
+    arguments:
+      $consumerKey: '%env(CONSUMER_KEY)%'
+      $consumerSecret: '%env(CONSUMER_SECRET)%'
+      $oauthCallback: '%env(OAUTH_CALLBACK)%'
