@@ -18,17 +18,21 @@ class TwitterService
         $this->oauthCallback = $oauthCallback;
     }
 
-
-    public function start() {
-        printf("<p>TEST: %s %s</p>", $this->consumerKey, $this->consumerSecret);
+    /**
+     * @return string
+     * @throws TwitterOAuthException
+     */
+    public function redirect(): string {
+        //printf("<p>TEST: %s %s</p>", $this->consumerKey, $this->consumerSecret);
         $connection = new TwitterOAuth($this->consumerKey, $this->consumerSecret);
         try{
-            $request_token = $connection->oauth('oauth/request_token', array('oauth_callback' => $this->oauthCallback));
-            printf("<div><pre>response: \n %s</pre></div>", var_export($request_token, true));
+            $requestToken = $connection->oauth('oauth/request_token', array('oauth_callback' => $this->oauthCallback));
+            return $connection->url('oauth/authorize', ['oauth_token' => $requestToken['oauth_token']]);
+            //printf("<div><pre>response: \n %s</pre></div>", var_export($request_token, true));
         } catch (TwitterOAuthException $e) {
-            printf("<div><pre>Exception!!!: \n %s</pre></div>", $e->getMessage());
+            //TODO: Add logger and throw exception further
+            //printf("<div><pre>Exception!!!: \n %s</pre></div>", $e->getMessage());
+            throw $e;
         }
-        //$connection = new TwitterOAuth(CONSUMER_KEY, CONSUMER_SECRET, $access_token, $access_token_secret);
-        //$content = $connection->get("account/verify_credentials");
     }
 }
