@@ -4,35 +4,58 @@ namespace Application\Service;
 
 use Abraham\TwitterOAuth\TwitterOAuth;
 use Abraham\TwitterOAuth\TwitterOAuthException;
+use App\Exception\CouldNotConnectException;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 class TwitterService
 {
-    private string $consumerKey;
-    private string $consumerSecret;
+    private TwitterOAuth $twitterOAuth;
     private string $oauthCallback;
+    private SessionInterface $session;
 
-    public function __construct(string $consumerKey, string $consumerSecret, string $oauthCallback)
+    public function __construct(TwitterOAuth $twitterOAuth, string $oauthCallback, SessionInterface $session)
     {
-        $this->consumerKey = $consumerKey;
-        $this->consumerSecret = $consumerSecret;
+        $this->twitterOAuth = $twitterOAuth;
         $this->oauthCallback = $oauthCallback;
+        $this->session = $session;
     }
+
 
     /**
      * @return string
      * @throws TwitterOAuthException
+     * @throws CouldNotConnectException
      */
-    public function redirect(): string {
-        //printf("<p>TEST: %s %s</p>", $this->consumerKey, $this->consumerSecret);
-        $connection = new TwitterOAuth($this->consumerKey, $this->consumerSecret);
-        try{
-            $requestToken = $connection->oauth('oauth/request_token', array('oauth_callback' => $this->oauthCallback));
-            return $connection->url('oauth/authorize', ['oauth_token' => $requestToken['oauth_token']]);
-            //printf("<div><pre>response: \n %s</pre></div>", var_export($request_token, true));
-        } catch (TwitterOAuthException $e) {
-            //TODO: Add logger and throw exception further
-            //printf("<div><pre>Exception!!!: \n %s</pre></div>", $e->getMessage());
-            throw $e;
+    public function redirect(): string
+    {
+        $requestToken = $this->twitterOAuth->oauth('oauth/request_token', array('oauth_callback' => $this->oauthCallback));
+
+        if ($this->twitterOAuth->getLastHttpCode() !== Response::HTTP_OK) {
+            throw new CouldNotConnectException();
         }
+
+        $this->session->set('oauth_token', $requestToken['oauth_token']);
+        $this->session->set('oauth_token_secret', $requestToken['oauth_token_secret']);
+
+        return $this->twitterOAuth->url('oauth/authorize', ['oauth_token' => $requestToken['oauth_token']]);
+    }
+
+    public function accessToken(string $oauthVerifier): array
+    {
+        printf("<p>Token: %s</p>", $this->session->get('oauth_token'));
+        printf("<p>Token Secret: %s</p>", $this->session->get('oauth_token_secret'));
+
+        $accessToken = $this->twitterOAuth->oauth("oauth/access_token", ["oauth_verifier" => $oauthVerifier]);
+
+        if ($this->twitterOAuth->getLastHttpCode() !== Response::HTTP_OK) {
+            throw new CouldNotConnectException();
+        }
+
+        $this->session->set('access_token', $accessToken);
+        $this->session->remove('oauth_token');
+        $this->session->remove('oauth_token_secret');
+
+        return $accessToken;
     }
 }

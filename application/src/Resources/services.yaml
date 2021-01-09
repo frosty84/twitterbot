@@ -1,6 +1,15 @@
 services:
-  Application\Service\TwitterService:
+  Application\Service\TwitterOAuthFactory:
     arguments:
       $consumerKey: '%env(CONSUMER_KEY)%'
       $consumerSecret: '%env(CONSUMER_SECRET)%'
-      $oauthCallback: '%env(OAUTH_CALLBACK)%'
+      $session: '@session'
+
+  Abraham\TwitterOAuth\TwitterOAuth:
+    factory: ['@Application\Service\TwitterOAuthFactory', 'create']
+
+  Application\Service\TwitterService:
+    arguments:
+      - '@Abraham\TwitterOAuth\TwitterOAuth'
+      - '%env(OAUTH_CALLBACK)%'
+      - '@session'
