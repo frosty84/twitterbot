@@ -31,8 +31,8 @@ class TwitterOAuthFactory
     {
         $oauthToken = $this->session->get('oauth_token');
         $oauthTokenSecret = $this->session->get('oauth_token_secret');
-        printf("<h3>2access token: %s</h3>", $oauthToken);
-        printf("<h3>2access token secret: %s</h3>", $oauthTokenSecret);
+//        printf("<h3>2access token: %s</h3>", $oauthToken);
+//        printf("<h3>2access token secret: %s</h3>", $oauthTokenSecret);
 
         return new TwitterOAuth($this->consumerKey, $this->consumerSecret, $oauthToken, $oauthTokenSecret);
     }

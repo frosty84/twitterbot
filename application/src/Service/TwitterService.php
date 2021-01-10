@@ -43,8 +43,8 @@ class TwitterService
 
     public function accessToken(string $oauthVerifier): array
     {
-        printf("<p>Token: %s</p>", $this->session->get('oauth_token'));
-        printf("<p>Token Secret: %s</p>", $this->session->get('oauth_token_secret'));
+//        printf("<p>Token: %s</p>", $this->session->get('oauth_token'));
+//        printf("<p>Token Secret: %s</p>", $this->session->get('oauth_token_secret'));
 
         $accessToken = $this->twitterOAuth->oauth("oauth/access_token", ["oauth_verifier" => $oauthVerifier]);
 
