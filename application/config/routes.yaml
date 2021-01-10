@@ -11,3 +11,8 @@ clear:
   path: /clear
   controller: App\Controller\ClearSessionController::clear
   methods: GET
+
+connection_error:
+  path: /connection_error
+  controller: App\Controller\ConnectionErrorController::error
+  methods: GET

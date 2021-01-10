@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block meta %}
+    <meta http-equiv="refresh" content="1;url={{ uri }}" />
+{% endblock %}{% block body %}
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
+                <div class="card card-signin my-5">
+                    <div class="card-body">
+                        <h5 class="card-title text-center">Redirect</h5>
+                        <hr class="my-4">
+                        <p>Redirecting to ... {{ uri }}</p>
+                        <hr class="my-4">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
