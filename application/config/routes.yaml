@@ -16,3 +16,8 @@ connection_error:
   path: /connection_error
   controller: App\Controller\ConnectionErrorController::error
   methods: GET
+
+verify:
+  path: /verify
+  controller: App\Controller\VerifyCredentialsController::verify
+  methods: GET
