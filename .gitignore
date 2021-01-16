@@ -1,3 +1,5 @@
 .idea/
 docker/database/data/
 src/vendor/
+application/.php_cs.cache
+application/.php_cs.dist
