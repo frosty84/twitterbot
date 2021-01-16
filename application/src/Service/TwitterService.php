@@ -29,7 +29,7 @@ class TwitterService
      */
     public function redirect(): string
     {
-        $requestToken = $this->twitterOAuth->oauth('oauth/request_token', array('oauth_callback' => $this->oauthCallback));
+        $requestToken = $this->twitterOAuth->oauth('oauth/request_token', ['oauth_callback' => $this->oauthCallback]);
 
         if ($this->twitterOAuth->getLastHttpCode() !== Response::HTTP_OK) {
             throw new CouldNotConnectException();

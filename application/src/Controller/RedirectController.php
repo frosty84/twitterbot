@@ -28,10 +28,10 @@ class RedirectController extends AbstractController
         $user = $this->session->get('user');
         $status = $this->session->get('status');
 
-        if(null !== $user) {
+        if (null !== $user) {
             $data['json_user'] = \json_encode($user, true);
         }
-        if(null !== $status) {
+        if (null !== $status) {
             $data['json_status'] = \json_encode($status, true);
         }
 

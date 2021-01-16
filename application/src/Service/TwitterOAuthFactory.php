@@ -3,7 +3,6 @@
 
 namespace Application\Service;
 
-
 use Abraham\TwitterOAuth\TwitterOAuth;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
@@ -44,5 +43,4 @@ class TwitterOAuthFactory
 
         return new TwitterOAuth($this->consumerKey, $this->consumerSecret, $oauthToken, $oauthTokenSecret);
     }
-
 }
