@@ -10,8 +10,10 @@
                     <div class="card-body">
                         <h5 class="card-title text-center">Verfify</h5>
                         <hr class="my-4">
-                        <p>Profile</p>
+                        <twitter-user user="{{ json_user }}"></twitter-user>
                         <hr class="my-4">
+                        <p>If you see your Twitter profile above, let's <a href="{{ path('redirect') }}">connect to Instagram</a>.</p>
+                        <p>If not, please <a href="{{ path('clear') }}">go back</a> and try again.</p>
                     </div>
                 </div>
             </div>

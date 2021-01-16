@@ -43,9 +43,6 @@ class TwitterService
 
     public function accessToken(string $oauthVerifier): array
     {
-//        printf("<p>Token: %s</p>", $this->session->get('oauth_token'));
-//        printf("<p>Token Secret: %s</p>", $this->session->get('oauth_token_secret'));
-
         $accessToken = $this->twitterOAuth->oauth("oauth/access_token", ["oauth_verifier" => $oauthVerifier]);
 
         if ($this->twitterOAuth->getLastHttpCode() !== Response::HTTP_OK) {
@@ -57,5 +54,19 @@ class TwitterService
         $this->session->remove('oauth_token_secret');
 
         return $accessToken;
+    }
+
+    public function verify()
+    {
+        return $this->twitterOAuth->get('account/verify_credentials', ['tweet_mode' => 'extended', 'include_entities' => 'true']);
+    }
+
+    public function status(string $idStr)
+    {
+        return $this->twitterOAuth->get('statuses/show', [
+            'id' => $idStr,
+            'tweet_mode' => 'extended',
+            'include_entities' => 'true'
+        ]);
     }
 }

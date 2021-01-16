@@ -10,8 +10,13 @@
                     <div class="card-body">
                         <h5 class="card-title text-center">Sign In</h5>
                         <hr class="my-4">
-                        <a href="{{ url }}"><img src="{{ asset('build/sign-in-with-twitter-gray.png.img.fullhd.medium.png') }}" alt="Sign in with Twitter button"></a>
+                        {% if json_status is defined %}
+                            <twitter-status status="{{ json_status }}"></twitter-status>
+                        {% else %}
+                            <a href="{{ url }}"><img src="{{ asset('build/sign-in-with-twitter-gray.png.img.fullhd.medium.png') }}" alt="Sign in with Twitter button"></a>
+                        {% endif %}
                         <hr class="my-4">
+                        <p>If something doesn't work, please <a href="{{ path('clear') }}">clear the session</a> and try again.</p>
                     </div>
                 </div>
             </div>
