@@ -1,6 +1,8 @@
 {
   "dependencies": {
-    "bootstrap": "^4.5.3"
+    "@fortawesome/fontawesome-free": "^5.15.2",
+    "bootstrap": "^4.5.3",
+    "typicons.font": "^2.0.9"
   },
   "devDependencies": {
     "@symfony/stimulus-bridge": "^1.1.0",

@@ -9,6 +9,10 @@
                 <div class="card card-signin my-5">
                     <div class="card-body">
                         <h5 class="card-title text-center">Sign In</h5>
+                        {% if json_status is defined %}
+                            <a href="{{ path('redirect', {reload: true}) }}"><i class="fas fa-sync" id="reload-twitter"></i></a>
+                        {% endif %}
+
                         <hr class="my-4">
                         {% if json_status is defined %}
                             <twitter-status status="{{ json_status }}"></twitter-status>

@@ -35,8 +35,8 @@ class CallbackController extends AbstractController
             throw new \InvalidArgumentException(sprintf('oauth_token and oauth_verifier are required'));
         }
 
-        printf("<p>oauthToken: %s</p>", $oauthToken);
-        printf("<p>oauthVerifier: %s</p>", $oauthVerifier);
+        //printf("<p>oauthToken: %s</p>", $oauthToken);
+        //printf("<p>oauthVerifier: %s</p>", $oauthVerifier);
         $accessToken = $this->twitterService->accessToken($oauthVerifier);
         return $this->render('callback.html.twig', ['access_token' => $accessToken]);
     }
